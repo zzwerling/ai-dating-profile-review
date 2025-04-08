@@ -15,11 +15,17 @@ A full-stack AI-powered tool for reviewing and improving dating app bios. Users 
 
 ---
 
-## 🚀 Tech Stack
-```md
-| Frontend        | Backend         | AI Engine      | Auth & Infra     |
-|-----------------|------------------|----------------|------------------|
-| React + Vite    | FastAPI (Python) | OpenAI API     | Firebase (Auth)  |
-| Tailwind CSS    | Uvicorn          | GPT-3.5-turbo  | Render (planned) |
-| Axios           | CORS Middleware  |                | Vercel (frontend)|
-```
+- **Frontend:**
+  - React + Vite
+  - Tailwind CSS
+  - Axios
+
+- **Backend:**
+  - FastAPI (Python)
+  - Uvicorn
+  - CORS Middleware
+
+- **AI Engine:**
+  - OpenAI API
+  - GPT-3.5-turbo
+
