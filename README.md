@@ -11,7 +11,7 @@ A full-stack AI-powered tool for reviewing and improving dating app bios. Users 
 - 💬 **Rewritten Suggestions** – Get improved versions of your bio along with explanation and rating.
 - 📱 **Responsive UI** – Clean, modern design using React + Tailwind CSS.
 - 🔐 **Firebase Auth (optional)** – Coming soon: sign in to save your bios and track your history.
-- 🔐 **Opening Line Suggestions** – Coming soon: customized opening message suggestions
+- 💬 **Opening Line Suggestions** – Coming soon: customized opening message suggestions
 
 ---
 
