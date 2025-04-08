@@ -33,7 +33,7 @@ function BioForm() {
     setTemperature(options.get(selectedOption))
 
     try {
-      const res = await axios.post("http://localhost:8000/review", {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/review`, {
         bio,
         temperature
       });

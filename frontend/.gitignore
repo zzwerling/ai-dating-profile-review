@@ -2,6 +2,7 @@ frontend/node_modules
 dist
 .env
 
+frontend/.env
 backend/.env
 backend/__pycache__/
 
