@@ -1,0 +1,28 @@
+# Byte-compiled / compiled files
+__pycache__/
+backend/__pycache__
+*.py[cod]
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Local secrets
+backend/.env
+.env
+firebase_credentials.json
+
+# Logs and output
+*.log
+
+# Node (in case dev accidentally mixes)
+node_modules/
