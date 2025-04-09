@@ -36,8 +36,7 @@ function OpenerForm() {
 
 
     try {
-      //const res = await axios.post(`${import.meta.env.VITE_API_URL}/generate-openers`, {
-      const res = await axios.post("http://localhost:8000/generate-openers", {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/generate-openers`, {
         description: bio,
         tone: toneMap.get(selectedTone),
         number: number
