@@ -21,5 +21,5 @@ Tone details:
 - If the tone is “Witty & Playful”: use subtle humor or irony, not jokes or punchlines.
 - If the tone is “Friendly & Casual”: warm, easygoing, and sincere.
 
-Return only a valid JSON response in this format:
-{ "openers": ["opener1", "opener2", ...] }
+Return a JSON response strictly adhering to the format listed below:
+{{ "openers": ["opener1", "opener2", "..."] }}
