@@ -10,12 +10,14 @@ from firebase_admin import auth as firebase_auth
 
 from pydantic import BaseModel
 
-import uvicorn
+from typing import List, Optional
+
 import logging
 
-from reviewer import get_bio_review
-from opener_generator import generate_openers
-from auth import init_firebase_from_env
+from utils.reviewer import get_bio_review
+from utils.conversation_coach import conversation_feedback
+from utils.opener_generator import generate_openers
+from utils.auth import init_firebase_from_env
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
@@ -57,6 +59,26 @@ class OpenerRequest(BaseModel):
 
 class OpenerResponse(BaseModel):
     openers: list[str]
+    
+class ConvoCoachRequest(BaseModel):
+    conversation: str
+    bio: str
+    
+class Feedback(BaseModel):
+    summary: str
+    tone_detected: str
+
+
+class Suggestion(BaseModel):
+    style: str
+    message: str
+
+
+class ConvoCoachResponse(BaseModel):
+    feedback: Feedback
+    suggestions: Optional[List[Suggestion]] = None 
+    
+
 
 @app.exception_handler(RateLimitExceeded)
 async def custom_rate_limit_handler(request: Request, exc: RateLimitExceeded):
@@ -81,7 +103,7 @@ def verify_firebase_token(request: Request):
 
 @app.post("/review", response_model=BioResponse)
 @limiter.limit("2/minute")
-def review(bio_request: BioRequest, request: Request):
+def review_route(bio_request: BioRequest, request: Request):
     result = get_bio_review(bio_request.bio, bio_request.temperature)
     return result
 
@@ -89,4 +111,10 @@ def review(bio_request: BioRequest, request: Request):
 @limiter.limit("5/minute")
 def generate_openers_route(opener_request: OpenerRequest, request: Request):
     result = generate_openers(opener_request.description, opener_request.tone, opener_request.number)
+    return result
+
+@app.post("/conversation-feedback", response_model=ConvoCoachResponse)
+@limiter.limit("5/minute")
+def conversation_feedback_route(conversation_request: ConvoCoachRequest, request: Request):
+    result = conversation_feedback(conversation_request.conversation, conversation_request.bio)
     return result

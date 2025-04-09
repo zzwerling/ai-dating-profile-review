@@ -1,7 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+dist/
+build/
+frontend/.env
+frontend/node_modules/
 backend/.env
-backend/venv
-backend/__pycache__
+backend/__pycache__/
+backend/utils/__pycache__/
 
-frontend/node_modules
-
-venv
+*.pyc
+venv/

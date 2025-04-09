@@ -1,5 +1,6 @@
 from openai import OpenAI
 from dotenv import load_dotenv
+
 import json
 import os
 import logging
@@ -14,16 +15,19 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 def load_prompt(variables: dict):
-    with open("opener_generator_prompt.txt", "r", encoding="utf-8") as file:
+    file_path = os.path.join(os.path.dirname(__file__), '..', 'prompts', 'conversation_feedback_prompt.txt')
+    file_path = os.path.abspath(file_path)
+
+    with open(file_path, "r", encoding="utf-8") as file:
         return file.read().format(**variables)
 
-def generate_openers(description: str, tone: str, number: int):
-    variables = {"description": description, "tone": tone, "number": number}
+def conversation_feedback(conversation: str, bio: str):
+    variables = {"conversation": conversation, "bio": bio}
     system_prompt = load_prompt(variables=variables)
     logger.info(system_prompt)
     try:
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": system_prompt},
             ],
@@ -35,7 +39,11 @@ def generate_openers(description: str, tone: str, number: int):
     except Exception as e:
         logger.error("Error calling OpenAI: %s", e)
         return {
-            "openers":["Failed to generate openers"]
+            "feedback": {
+                "summary": "Failed to generate feedback",
+                "tone_detected": "Unknown"
+            },
+            "suggestions": []
         }
     
 

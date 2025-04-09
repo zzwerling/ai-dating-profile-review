@@ -22,6 +22,11 @@ function NavBar() {
         Generate Opener
       </Link>
     </div>
+    <div className="flex space-x-4 text-sm">
+      <Link to="/convo-coach" className="hover:underline hover:text-gray-200">
+        Conversation Coach
+      </Link>
+    </div>
   </div>
 </nav>
   );

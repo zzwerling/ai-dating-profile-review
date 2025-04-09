@@ -13,8 +13,10 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-def load_system_message(path="bio_review_prompt.txt"):
-    with open(path, "r", encoding="utf-8") as file:
+def load_system_message():
+    file_path = os.path.join(os.path.dirname(__file__), '..', 'prompts', 'bio_review_prompt.txt')
+    file_path = os.path.abspath(file_path)
+    with open(file_path, "r", encoding="utf-8") as file:
         return file.read()
 
 def get_bio_review(bio: str, temperature: float):

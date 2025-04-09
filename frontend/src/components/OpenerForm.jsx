@@ -54,13 +54,15 @@ function OpenerForm() {
     <div className="w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto mt-10 bg-white shadow-xl rounded-xl p-6 sm:p-8 md:p-10">
       <form onSubmit={handleSubmit} className="space-y-6">
         <h2 className="text-2xl font-bold text-black-800">Generate Openers </h2>
-
+        <hr></hr>
+        <h3 className="text-xl font-semibold text-gray-700 mb-1">Bio</h3>
         <textarea
           className="w-full p-4 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
           rows="5"
           placeholder="Paste their dating profile bio (or a description of their profile) here"
           value={bio}
           onChange={(e) => setBio(e.target.value)}
+          maxLength={500}
           required
         />
 
