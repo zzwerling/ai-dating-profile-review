@@ -30,8 +30,63 @@ Return your answer strictly as JSON, in this format:
 
 If the user spoke last, return an empty list for "suggestions" and only provide the "feedback".
 
-Here is the conversation to analyze:
+---
+
+### Example 1 – Match spoke last:
+Conversation:
+Her: You better bring some game to this chess match.
+Me: Oh I’m bringing it. Hope you're ready to lose.
+Her: Damn okay, confidence. I like it.
+
+Response:
+{{
+  "feedback": {{
+    "summary": "Strong, playful energy. You're holding the vibe well.",
+    "tone_detected": "Confident, flirtatious"
+  }},
+  "suggestions": [
+    {{
+      "style": "funny",
+      "message": "Should I bring tissues for your ego after I win?"
+    }},
+    {{
+      "style": "flirty",
+      "message": "So what do I win if I make you blush during the match?"
+    }},
+    {{
+      "style": "curious",
+      "message": "You always this competitive or am I just special?"
+    }}
+  ]
+}}
+
+---
+
+### Example 2 – User spoke last:
+Conversation:
+Her: You seem like the type who travels a lot.
+Me: Nah, I’m more of a couch + snacks + chaos movies type.
+
+Response:
+{{
+  "feedback": {{
+    "summary": "You kept it honest and light, but missed an easy opportunity to ask her about herself or escalate with humor.",
+    "tone_detected": "Relaxed, casual"
+  }},
+  "suggestions": []
+}}
+
+---
+
+### Now analyze the following:
+
+Conversation:
 {conversation}
 
 Here is the other person's bio for tailoring replies and feedback:
 {bio}
+
+REMEMBER:
+- If the user spoke last, ONLY return feedback.
+- If the match spoke last, return both feedback and suggestions.
+- Response must be valid JSON with keys: feedback, suggestions.

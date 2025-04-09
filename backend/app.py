@@ -114,7 +114,7 @@ def generate_openers_route(opener_request: OpenerRequest, request: Request):
     return result
 
 @app.post("/conversation-feedback", response_model=ConvoCoachResponse)
-@limiter.limit("5/minute")
+@limiter.limit("5/hour")
 def conversation_feedback_route(conversation_request: ConvoCoachRequest, request: Request):
     result = conversation_feedback(conversation_request.conversation, conversation_request.bio)
     return result
