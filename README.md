@@ -1,31 +1,39 @@
-# AI Dating Profile Reviewer 💘🤖
+# AI Dating Profile Toolkit 💘🤖
 
-A full-stack AI-powered tool for reviewing and improving dating app bios. Users can paste in their current bio, choose a critique style, and receive feedback + a rewritten version, all powered by OpenAI.
+**AI Dating Profile Toolkit** is a full-stack web application that helps users optimize their dating profiles using GPT-powered tools. It currently includes:
 
----
+- **Bio Critique Tool:** Provides professional-style feedback on dating bios based on tone, clarity, and originality.
+- **Opener Generator:** Creates customized opening messages tailored to a user's profile and desired tone.
 
-## ✨ Features
-
-- 🔥 **Critique Generator** – AI reviews your dating bio with an adjustable creativity setting (temperature).
-- 🎨 **Style Selector** – Choose from multiple critique styles like Friendly, Balanced, Bold, or Freestyle.
-- 💬 **Rewritten Suggestions** – Get improved versions of your bio along with explanation and rating.
-- 📱 **Responsive UI** – Clean, modern design using React + Tailwind CSS.
-- 🔐 **Firebase Auth (optional)** – Coming soon: sign in to save your bios and track your history.
-- 💬 **Opening Line Suggestions** – Coming soon: customized opening message suggestions
+The app features a React frontend (Vite + Tailwind) with a FastAPI backend powered by OpenAI’s GPT-3.5-Turbo. It’s containerized with Docker and deployed to production on AWS EC2 and Vercel.
 
 ---
 
-- **Frontend:**
-  - React + Vite
-  - Tailwind CSS
-  - Axios
+## 💡 Description
 
-- **Backend:**
-  - FastAPI (Python)
-  - Uvicorn
-  - CORS Middleware
+This project was built to explore practical LLM integration across a real-world full-stack application — combining AI prompt engineering with scalable backend design, modern frontend tooling, and cloud deployment.
 
-- **AI Engine:**
-  - OpenAI API
-  - GPT-3.5-turbo
+The tools are designed to produce engaging, personality-driven outputs that remain appropriate, original, and aligned with user-selected tone — with safeguards in place to avoid repetition, crude content, or generic language.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React, Vite, Tailwind CSS, Axios (hosted on Vercel)
+- **Backend:** Python, FastAPI, OpenAI API, Pydantic, Docker
+- **Infrastructure:** Docker Compose, AWS EC2, Nginx, HTTPS via Certbot
+- **AI & LLM:** GPT-3.5-Turbo, Prompt Engineering, Tone Control, Output Filtering
+
+---
+
+## 🌐 Live Demo
+
+**[ai-dating-profile-toolkit.vercel.app](https://ai-dating-profile-toolkit.vercel.app/)**
+
+---
+
+## 📂 Repository
+
+**Backend:** [`/backend`](https://github.com/zzwerling/ai-dating-profile-toolkit/tree/main/backend)  
+**Frontend:** [`/frontend`](https://github.com/zzwerling/ai-dating-profile-toolkit/tree/main/frontend)
 
