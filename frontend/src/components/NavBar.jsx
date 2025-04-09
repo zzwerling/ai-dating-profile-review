@@ -8,6 +8,11 @@ function NavBar() {
       AI-Powered Dating Profile Assistant
     </Link>
     <div className="flex space-x-4 text-sm">
+      <Link to="/" className="hover:underline hover:text-gray-200">
+        Home
+      </Link>
+    </div>
+    <div className="flex space-x-4 text-sm">
       <Link to="/bio-review" className="hover:underline hover:text-gray-200">
         Bio Review
       </Link>
