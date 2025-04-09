@@ -113,7 +113,7 @@ function OpenerForm() {
           className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium text-lg hover:bg-blue-700 transition"
           disabled={loading}
         >
-          {loading ? "Analyzing..." : "Submit"}
+          {loading ? "Generating openers..." : "Submit"}
         </button>
       </form>
 
@@ -133,10 +133,7 @@ function OpenerForm() {
         </div>
       )}
 
-      {/* Optional Loading Spinner */}
-      {loading && (
-        <p className="text-sm text-gray-500 mt-4">Generating openers...</p>
-      )}
+     
     </div>
   );
 }
