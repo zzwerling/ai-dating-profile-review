@@ -13,12 +13,13 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-def load_prompt(path="opener_generator_prompt.txt", **variables):
-    with open(path, "r", encoding="utf-8") as file:
+def load_prompt(variables: dict):
+    with open("opener_generator_prompt.txt", "r", encoding="utf-8") as file:
         return file.read().format(**variables)
 
 def generate_openers(description: str, tone: str, number: int):
-    system_prompt = load_prompt({"description": description, "tone": tone, "number": number})
+    variables = {"description": description, "tone": tone, "number": number}
+    system_prompt = load_prompt(variables=variables)
     logger.info(system_prompt)
     try:
         response = client.chat.completions.create(
