@@ -1,9 +1,9 @@
-import BioForm from "../components/BioForm";
+import OpenerForm from "../components/OpenerForm";
 import NavBar from "../components/NavBar";
 
 import { useNavigate } from "react-router-dom";
 
-function BioReviewPage() {
+function GenerateOpenerPage() {
 
     const navigate = useNavigate();
 
@@ -17,16 +17,16 @@ function BioReviewPage() {
     
           <div className="w-full flex justify-center mb-8">
             <h2 className="text-3xl font-semibold text-gray-800 border-b-2 border-gray-300 pb-2">
-              AI-Powered Dating Bio Review
+              AI-Powered Online Dating Opener Generator
             </h2>
           </div>
     
           <div className="flex items-center justify-center">
-            <BioForm />
+            <OpenerForm />
           </div>
         </div>
         </div>
       );
 }
 
-export default BioReviewPage;
+export default GenerateOpenerPage;

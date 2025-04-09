@@ -14,6 +14,7 @@ import uvicorn
 import logging
 
 from reviewer import get_bio_review
+from opener_generator import generate_openers
 from auth import init_firebase_from_env
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
@@ -49,6 +50,14 @@ class BioResponse(BaseModel):
     rewritten_rating: int
     rewritten_explanation: str
 
+class OpenerRequest(BaseModel):
+    description: str
+    tone: str
+    number: int
+
+class OpenerResponse(BaseModel):
+    openers: list[str]
+
 @app.exception_handler(RateLimitExceeded)
 async def custom_rate_limit_handler(request: Request, exc: RateLimitExceeded):
     client_ip = request.client.host
@@ -76,5 +85,8 @@ def review(bio_request: BioRequest, request: Request):
     result = get_bio_review(bio_request.bio, bio_request.temperature)
     return result
 
-if __name__ == "__main__":
-    uvicorn.run("app:app", host="localhost", port=8000, reload=True)
+@app.post("/generate-openers", response_model=OpenerResponse)
+@limiter.limit("5/minute")
+def generate_openers_route(opener_request: OpenerRequest, request: Request):
+    result = generate_openers(opener_request.description, opener_request.tone, opener_request.number)
+    return result

@@ -17,6 +17,11 @@ function NavBar() {
         Bio Review
       </Link>
     </div>
+    <div className="flex space-x-4 text-sm">
+      <Link to="/generate-openers" className="hover:underline hover:text-gray-200">
+        Generate Opener
+      </Link>
+    </div>
   </div>
 </nav>
   );

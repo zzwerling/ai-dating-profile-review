@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import BioReviewPage from "./pages/BioReviewPage";
+import GenerateOpenerPage from "./pages/GenerateOpenerPage";
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/bio-review" element={<BioReviewPage />} />
+        <Route path="/generate-openers" element={<GenerateOpenerPage />}/>
       </Routes>
     </Router>
   );

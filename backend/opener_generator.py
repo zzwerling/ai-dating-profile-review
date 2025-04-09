@@ -13,21 +13,20 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-def load_system_message(path="bio_review_prompt.txt"):
+def load_prompt(path="opener_generator_prompt.txt", **variables):
     with open(path, "r", encoding="utf-8") as file:
-        return file.read()
+        return file.read().format(**variables)
 
-def get_bio_review(bio: str, temperature: float):
-    system_message = load_system_message()
-    user_prompt = "Here is the bio to review: " + bio
+def generate_openers(description: str, tone: str, number: int):
+    system_prompt = load_prompt({"description": description, "tone": tone, "number": number})
+    logger.info(system_prompt)
     try:
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": system_message},
-                {"role": "user", "content": user_prompt}
+                {"role": "system", "content": system_prompt},
             ],
-            temperature=temperature,
+            temperature=0.7,
             max_tokens=1000
         )
         logger.info("OpenAI response received")
@@ -35,11 +34,7 @@ def get_bio_review(bio: str, temperature: float):
     except Exception as e:
         logger.error("Error calling OpenAI: %s", e)
         return {
-            "submitted_rating": 0,
-            "submitted_critique": "Error processing bio.",
-            "rewritten_bio": "",
-            "rewritten_rating": 0,
-            "rewritten_explanation": "Could not generate rewrite due to an error."
+            "openers":["Failed to generate openers"]
         }
     
 

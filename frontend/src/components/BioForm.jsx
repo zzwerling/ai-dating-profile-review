@@ -49,7 +49,7 @@ function BioForm() {
   return (
 <div className="w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto mt-10 bg-white shadow-xl rounded-xl p-6 sm:p-8 md:p-10">
 <form onSubmit={handleSubmit} className="space-y-6">
-        <h2 className="text-2xl font-bold text-black-800">Dating Bio Review </h2>
+        <h2 className="text-2xl font-bold text-black-800">Dating Bio Review</h2>
   
         <textarea
           className="w-full p-4 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
