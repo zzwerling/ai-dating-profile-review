@@ -4,6 +4,8 @@
 
 - **Bio Critique Tool:** Provides professional-style feedback on dating bios based on tone, clarity, and originality.
 - **Opener Generator:** Creates customized opening messages tailored to a user's profile and desired tone.
+- **Conversation Coach:** Analyzes a user's conversation and gives feedback on their perceived tone. Suggests responses with a variety of different tones.
+
 
 The app features a React frontend (Vite + Tailwind) with a FastAPI backend powered by OpenAI’s GPT-3.5-Turbo. It’s containerized with Docker and deployed to production on AWS EC2 and Vercel.
 
@@ -23,6 +25,12 @@ The tools are designed to produce engaging, personality-driven outputs that rema
 - **Backend:** Python, FastAPI, OpenAI API, Pydantic, Docker
 - **Infrastructure:** Docker Compose, AWS EC2, Nginx, HTTPS via Certbot
 - **AI & LLM:** GPT-3.5-Turbo, Prompt Engineering, Tone Control, Output Filtering
+
+---
+
+### ⚠️ Known Limitations
+
+LLMs occasionally return malformed or off-target responses. This is being actively addressed with prompt refinement, fallback handling, and smarter model selection.
 
 ---
 
