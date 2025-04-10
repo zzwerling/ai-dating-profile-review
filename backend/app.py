@@ -8,16 +8,17 @@ from slowapi.errors import RateLimitExceeded
 
 from firebase_admin import auth as firebase_auth
 
-from pydantic import BaseModel
-
-from typing import List, Optional
+from models.schema import BioRequest, BioResponse, OpenerRequest, \
+OpenerResponse, ConvoCoachRequest, ConvoCoachResponse, ImageURLRequest, ImageURLResponse
 
 import logging
 
-from utils.reviewer import get_bio_review
+from utils.bio_reviewer import get_bio_review
 from utils.conversation_coach import conversation_feedback
 from utils.opener_generator import generate_openers
 from utils.auth import init_firebase_from_env
+from utils.imgur import fetch_album_images
+#from utils.image_reviewer import score_image
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
@@ -41,43 +42,7 @@ limiter = Limiter(key_func=get_remote_address)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
-class BioRequest(BaseModel):
-    bio: str
-    temperature: float
 
-class BioResponse(BaseModel):
-    submitted_rating: int
-    submitted_critique: str
-    rewritten_bio: str
-    rewritten_rating: int
-    rewritten_explanation: str
-
-class OpenerRequest(BaseModel):
-    description: str
-    tone: str
-    number: int
-
-class OpenerResponse(BaseModel):
-    openers: list[str]
-    
-class ConvoCoachRequest(BaseModel):
-    conversation: str
-    bio: str
-    
-class Feedback(BaseModel):
-    summary: str
-    tone_detected: str
-
-
-class Suggestion(BaseModel):
-    style: str
-    message: str
-
-
-class ConvoCoachResponse(BaseModel):
-    feedback: Feedback
-    suggestions: Optional[List[Suggestion]] = None 
-    
 
 
 @app.exception_handler(RateLimitExceeded)
@@ -101,7 +66,7 @@ def verify_firebase_token(request: Request):
     except Exception:
         raise HTTPException(status_code=401, detail="Invalid or expired token.")
 
-@app.post("/review", response_model=BioResponse)
+@app.post("/bio-review", response_model=BioResponse)
 @limiter.limit("2/minute")
 def review_route(bio_request: BioRequest, request: Request):
     result = get_bio_review(bio_request.bio, bio_request.temperature)
@@ -118,3 +83,13 @@ def generate_openers_route(opener_request: OpenerRequest, request: Request):
 def conversation_feedback_route(conversation_request: ConvoCoachRequest, request: Request):
     result = conversation_feedback(conversation_request.conversation, conversation_request.bio)
     return result
+
+"""
+@app.post("/process-images", response_model=ImageURLResponse)
+#@limiter.limit("5/hour")
+def conversation_feedback_route(image_request: ImageURLRequest, request: Request):
+    images = fetch_album_images(image_request.imgur_url)
+    scored_images = [score_image(str(image.link)) for image in images]
+    logger.info(scored_images)
+    return ImageURLResponse(images=scored_images)
+"""
