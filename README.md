@@ -5,6 +5,7 @@
 - **Bio Critique Tool:** Provides professional-style feedback on dating bios based on tone, clarity, and originality.
 - **Opener Generator:** Creates customized opening messages tailored to a user's profile and desired tone.
 - **Conversation Coach:** Analyzes a user's conversation and gives feedback on their perceived tone. Suggests responses with a variety of different tones.
+- **Profile Coach (Coming Soon):** Analyzes a user's profile pictures and gives detailed feedback.
 
 
 The app features a React frontend (Vite + Tailwind) with a FastAPI backend powered by OpenAI’s GPT-3.5-Turbo. It’s containerized with Docker and deployed to production on AWS EC2 and Vercel.
