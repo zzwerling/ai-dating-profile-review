@@ -15,6 +15,8 @@ from typing import List, Optional
 import logging
 import re
 import json
+import unicodedata
+
 from utils.reviewer import get_bio_review
 from utils.conversation_coach import conversation_feedback
 from utils.opener_generator import generate_openers
@@ -79,12 +81,31 @@ class ConvoCoachResponse(BaseModel):
     feedback: Feedback
     suggestions: Optional[List[Suggestion]] = None 
 
+def normalize_input(text: str) -> str:
+    text = unicodedata.normalize("NFKD", text)
+    text = text.encode("ascii", "ignore").decode("ascii")
+
+    text = text.lower()
+
+    text = re.sub(r'&nbsp;|&#32;|&#x20;', '', text)
+
+    text = re.sub(r'\s+', '', text)
+
+    text = re.sub(r'[-_\\/]', '', text)
+
+    text = re.sub(r'[.,:;!?(){}\[\]\'\"<>]', '', text)
+
+    return text
+
 def is_input_safe(user_input: str) -> bool:
+    cleaned_input = normalize_input(user_input)
     try:
-        with open('secrets/filters.json') as f:
+        with open('filters.json') as f:
             filters = json.load(f).get('blocked_patterns', [])
         for pattern in filters:
             if re.search(pattern, user_input, re.IGNORECASE):
+                return False
+            if re.search(pattern, cleaned_input, re.IGNORECASE):
                 return False
         return True
     except Exception as e:
