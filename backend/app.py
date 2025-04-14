@@ -115,7 +115,7 @@ def verify_firebase_token(request: Request):
 @limiter.limit("2/minute")
 def review_route(bio_request: BioRequest, request: Request):
     
-    if not is_input_safe(request.bio):
+    if not is_input_safe(bio_request.bio):
         raise HTTPException(status_code=400, detail="Input contains disallowed content.")
     
     result = get_bio_review(bio_request.bio, bio_request.temperature)
@@ -125,7 +125,7 @@ def review_route(bio_request: BioRequest, request: Request):
 @limiter.limit("5/minute")
 def generate_openers_route(opener_request: OpenerRequest, request: Request):
     
-    if not is_input_safe(request.description):
+    if not is_input_safe(opener_request.description):
         raise HTTPException(status_code=400, detail="Input contains disallowed content.")
     
     result = generate_openers(opener_request.description, opener_request.tone, opener_request.number)
@@ -135,7 +135,7 @@ def generate_openers_route(opener_request: OpenerRequest, request: Request):
 @limiter.limit("5/hour")
 def conversation_feedback_route(conversation_request: ConvoCoachRequest, request: Request):
     
-    if not is_input_safe(request.conversation) or not is_input_safe(request.bio):
+    if not is_input_safe(conversation_request.conversation) or not is_input_safe(conversation_request.bio):
         raise HTTPException(status_code=400, detail="Input contains disallowed content.")
     
     result = conversation_feedback(conversation_request.conversation, conversation_request.bio)
