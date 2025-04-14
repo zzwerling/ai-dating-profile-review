@@ -98,18 +98,24 @@ def normalize_input(text: str) -> str:
     return text
 
 def is_input_safe(user_input: str) -> bool:
-    cleaned_input = normalize_input(user_input)
     try:
-        with open('filters.json') as f:
-            filters = json.load(f).get('blocked_patterns', [])
-        for pattern in filters:
+        with open("filters.json") as f:
+            filters = json.load(f)
+        cleaned_input = normalize_input(user_input)
+
+        raw_patterns = filters.get("raw_patterns", [])
+        cleaned_patterns = filters.get("cleaned_patterns", [])
+
+        for pattern in raw_patterns:
             if re.search(pattern, user_input, re.IGNORECASE):
                 return False
+
+        for pattern in cleaned_patterns:
             if re.search(pattern, cleaned_input, re.IGNORECASE):
                 return False
+
         return True
-    except Exception as e:
-        # Fail safe: block everything if the filter can't be loaded
+    except Exception:
         return False
 
 
