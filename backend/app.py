@@ -14,6 +14,7 @@ from typing import List, Optional
 
 import logging
 import re
+import json
 from utils.reviewer import get_bio_review
 from utils.conversation_coach import conversation_feedback
 from utils.opener_generator import generate_openers
@@ -79,15 +80,16 @@ class ConvoCoachResponse(BaseModel):
     suggestions: Optional[List[Suggestion]] = None 
 
 def is_input_safe(user_input: str) -> bool:
-    if re.search(r'data:image\/[a-zA-Z]+;base64,[^\s]+', user_input):
+    try:
+        with open('secrets/filters.json') as f:
+            filters = json.load(f).get('blocked_patterns', [])
+        for pattern in filters:
+            if re.search(pattern, user_input, re.IGNORECASE):
+                return False
+        return True
+    except Exception as e:
+        # Fail safe: block everything if the filter can't be loaded
         return False
-    if re.search(r'<(img|script)', user_input, re.IGNORECASE):
-        return False
-    if re.search(r'https?:\/\/[^\s]+', user_input):
-        return False
-    if len(user_input) > 1000:
-        return False
-    return True
 
 
 @app.exception_handler(RateLimitExceeded)
