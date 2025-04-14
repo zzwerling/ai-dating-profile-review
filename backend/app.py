@@ -13,7 +13,7 @@ from pydantic import BaseModel
 from typing import List, Optional
 
 import logging
-
+import re
 from utils.reviewer import get_bio_review
 from utils.conversation_coach import conversation_feedback
 from utils.opener_generator import generate_openers
@@ -77,7 +77,17 @@ class Suggestion(BaseModel):
 class ConvoCoachResponse(BaseModel):
     feedback: Feedback
     suggestions: Optional[List[Suggestion]] = None 
-    
+
+def is_input_safe(user_input: str) -> bool:
+    if re.search(r'data:image\/[a-zA-Z]+;base64,[^\s]+', user_input):
+        return False
+    if re.search(r'<(img|script)', user_input, re.IGNORECASE):
+        return False
+    if re.search(r'https?:\/\/[^\s]+', user_input):
+        return False
+    if len(user_input) > 1000:
+        return False
+    return True
 
 
 @app.exception_handler(RateLimitExceeded)
@@ -104,17 +114,29 @@ def verify_firebase_token(request: Request):
 @app.post("/review", response_model=BioResponse)
 @limiter.limit("2/minute")
 def review_route(bio_request: BioRequest, request: Request):
+    
+    if not is_input_safe(request.bio):
+        raise HTTPException(status_code=400, detail="Input contains disallowed content.")
+    
     result = get_bio_review(bio_request.bio, bio_request.temperature)
     return result
 
 @app.post("/generate-openers", response_model=OpenerResponse)
 @limiter.limit("5/minute")
 def generate_openers_route(opener_request: OpenerRequest, request: Request):
+    
+    if not is_input_safe(request.description):
+        raise HTTPException(status_code=400, detail="Input contains disallowed content.")
+    
     result = generate_openers(opener_request.description, opener_request.tone, opener_request.number)
     return result
 
 @app.post("/conversation-feedback", response_model=ConvoCoachResponse)
 @limiter.limit("5/hour")
 def conversation_feedback_route(conversation_request: ConvoCoachRequest, request: Request):
+    
+    if not is_input_safe(request.conversation) or not is_input_safe(request.bio):
+        raise HTTPException(status_code=400, detail="Input contains disallowed content.")
+    
     result = conversation_feedback(conversation_request.conversation, conversation_request.bio)
     return result
