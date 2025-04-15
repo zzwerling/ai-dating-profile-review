@@ -7,7 +7,7 @@
 - **Conversation Coach:** Analyzes a user's conversation and gives feedback on their perceived tone. Suggests responses with a variety of different tones.
 
 
-The app features a React frontend (Vite + Tailwind) with a FastAPI backend powered by OpenAI’s GPT-3.5-Turbo. It’s containerized with Docker and deployed to production on AWS EC2 and Vercel.
+The app features a React frontend (Vite + Tailwind) with a FastAPI backend powered by OpenAI’s GPT-3.5-Turbo. It’s containerized with Docker and was tested using a private EC2 instance.
 
 ---
 
