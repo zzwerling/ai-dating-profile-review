@@ -1,6 +1,6 @@
 # AI Social Media Profile Toolkit 💘🤖
 
-> ⚠️ **Note:** The live demo is currently offline. The full codebase is available and easily deployable via Docker. Please refer to the README for setup instructions.
+> ⚠️ **Note:** The live demo is currently offline. The full codebase is available and easily deployable via Docker.
 
 **AI Social Media Profile Toolkit** is a full-stack web application that helps users optimize their online social profiles using GPT-powered tools. It currently includes:
 
