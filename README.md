@@ -1,8 +1,8 @@
 # AI Dating Profile Toolkit 💘🤖
 
-**AI Dating Profile Toolkit** is a full-stack web application that helps users optimize their dating profiles using GPT-powered tools. It currently includes:
+**AI Dating Profile Toolkit** is a full-stack web application that helps users optimize their online social profiles using GPT-powered tools. It currently includes:
 
-- **Bio Critique Tool:** Provides professional-style feedback on dating bios based on tone, clarity, and originality.
+- **Bio Critique Tool:** Provides professional-style feedback on profile bios based on tone, clarity, and originality.
 - **Opener Generator:** Creates customized opening messages tailored to a user's profile and desired tone.
 - **Conversation Coach:** Analyzes a user's conversation and gives feedback on their perceived tone. Suggests responses with a variety of different tones.
 
