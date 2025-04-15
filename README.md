@@ -36,6 +36,6 @@ LLMs occasionally return malformed or off-target responses. This is being active
 
 ## 📂 Repository
 
-**Backend:** [`/backend`](https://github.com/zzwerling/ai-dating-profile-toolkit/tree/main/backend)  
-**Frontend:** [`/frontend`](https://github.com/zzwerling/ai-dating-profile-toolkit/tree/main/frontend)
+**Backend:** [`/backend`](https://github.com/zzwerling/ai-social-profile-toolkit/tree/main/backend)  
+**Frontend:** [`/frontend`](https://github.com/zzwerling/ai-social-profile-toolkit/tree/main/frontend)
 
