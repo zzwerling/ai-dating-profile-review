@@ -1,6 +1,6 @@
-# AI Dating Profile Toolkit 💘🤖
+# AI Social Media Profile Toolkit 💘🤖
 
-**AI Dating Profile Toolkit** is a full-stack web application that helps users optimize their online social profiles using GPT-powered tools. It currently includes:
+**AI Social Media Profile Toolkit** is a full-stack web application that helps users optimize their online social profiles using GPT-powered tools. It currently includes:
 
 - **Bio Critique Tool:** Provides professional-style feedback on profile bios based on tone, clarity, and originality.
 - **Opener Generator:** Creates customized opening messages tailored to a user's profile and desired tone.
@@ -31,12 +31,6 @@ The tools are designed to produce engaging, personality-driven outputs that rema
 ### ⚠️ Known Limitations
 
 LLMs occasionally return malformed or off-target responses. This is being actively addressed with prompt refinement, fallback handling, and smarter model selection.
-
----
-
-## 🌐 Live Demo
-
-**[ai-dating-profile-toolkit.vercel.app](https://ai-dating-profile-toolkit.vercel.app/)**
 
 ---
 
